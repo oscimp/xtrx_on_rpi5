@@ -1,0 +1,33 @@
+diff --git a/xtrx.c b/xtrx.c
+index 197a94d..067bd2b 100644
+--- a/xtrx.c
++++ b/xtrx.c
+@@ -27,6 +27,7 @@
+ #include <linux/kdev_t.h>
+ #include <linux/fs.h>
+ #include <linux/cdev.h>
++#include <linux/dma-direct.h>
+ #include <linux/sched.h>
+ #include <linux/poll.h>
+ #include <linux/mm.h>
+@@ -177,9 +178,9 @@ MODULE_VERSION("0.1");
+  * mmaped to userspce. Convertion DMA->PA->VA does the trick on that
+  * platforms
+  */
+-#ifdef CONFIG_CPU_RK3399
++//#ifdef CONFIG_CPU_RK3399
+ #define VA_DMA_ADDR_FIXUP
+-#endif
++//#endif
+ 
+ 
+ static void xtrx_writel(struct xtrx_dev *dev, unsigned int off, unsigned int value)
+@@ -623,7 +624,7 @@ static int xtrx_allocdma(struct xtrx_dev *d, struct xtrx_dmabuf_nfo *pbufs, unsi
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(5, 18, 0)
+ 		pbufs[i].virt = pci_alloc_consistent(d->pdev, buflen, &pbufs[i].phys);
+ #else
+-		pbufs[i].virt = dma_alloc_coherent(&d->pdev->dev, buflen, &pbufs[i].phys, GFP_KERNEL);
++		pbufs[i].virt = dmam_alloc_coherent(&d->pdev->dev, buflen, &pbufs[i].phys, GFP_KERNEL);
+ #endif
+ 		if (!pbufs[i].virt) {
+ 			printk(KERN_INFO PFX "Failed to allocate %d DMA buffer", i);

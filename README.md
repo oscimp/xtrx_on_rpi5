@@ -43,11 +43,16 @@ with
 ```
 pbufs[i].virt = dmam_alloc_coherent(&d->pdev->dev, buflen, &pbufs[i].phys, GFP_KERNEL);
 ```
-(notice the ``dmam`` instead of ``dma``).
+(notice the ``dmam`` instead of ``dma``). This procedure is automated with
+```
+git clone https://github.com/xtrx-sdr/xtrx_linux_pcie_drv
+cd xtrx_linux_pcie_drv
+git checkout d218d3e8be3f723000bdfff6b6235a85f7b10e42
+patch -p1 < ../xtrx.patch
+```
 
-With these updates and after rebooting
-
-After compiling this modified kernel and loading to memory from the ``xtrx_linux_pcie_drv`` directory
+After compiling this modified kernel and loading to memory from the ``xtrx_linux_pcie_drv`` 
+directory
 ```
 make
 sudo insmod xtrx.ko
