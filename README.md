@@ -9,7 +9,7 @@ and a kernel 6.6 -- ``Linux raspberrypi 6.6.74+rpt-rpi-2712 #1 SMP PREEMPT Debia
 (see the ``config.txt`` line stating ``kernel=kernel8.img``) to use 4 KB memory pagesize rather 
 than the defaut 16 KB on RPi5.
 
-The XTRX is fitted on the PCI bus using https://pineboards.io/products/hat-mpcie-for-raspberry-pi-5.
+The XTRX is fitted on the [PCI bus](https://www.jeffgeerling.com/blog/2023/testing-pcie-on-raspberry-pi-5) using https://pineboards.io/products/hat-mpcie-for-raspberry-pi-5.
 
 <img src="IMG_20250225_074634_402small.jpg">
 
@@ -22,8 +22,8 @@ $ lspci
 0001:01:00.0 Ethernet controller: Raspberry Pi Ltd RP1 PCIe 2.0 South Bridge
 ```
 i.e. the XTRX is visible with the ``Xilinx Corporation Device 7012``. In case this entry
-is not visible, either check the XTRX connection, or reboot (seems that the board is not always
-detected on the PCI bus).
+is not visible, either check the XTRX connection, **or reboot** (seems that the board is not 
+always detected on the PCI bus).
 
 ## XTRX driver
 
@@ -43,7 +43,8 @@ with
 ```
 pbufs[i].virt = dmam_alloc_coherent(&d->pdev->dev, buflen, &pbufs[i].phys, GFP_KERNEL);
 ```
-(notice the ``dmam`` instead of ``dma``). This procedure is automated with
+(notice the ``dmam`` instead of ``dma`` -- see https://github.com/enjoy-digital/litex_xtrx/blob/master/software/kernel/main.c#L171 for the inspiration of this correction by Gwen Goavec-Merou). 
+This procedure is automated with
 ```
 git clone https://github.com/xtrx-sdr/xtrx_linux_pcie_drv
 cd xtrx_linux_pcie_drv
