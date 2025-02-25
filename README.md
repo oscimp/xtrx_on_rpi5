@@ -2,12 +2,16 @@
 
 ## GNU/Linux binary distribution
 
-The Raspberry Pi is running a binary distribution of Debian GNU/Linux on Raspberry
+The Raspberry Pi 5 is running a binary distribution of Debian GNU/Linux on Raspberry
 Pi 5 as found at https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit
 (Raspberry Pi OS Lite, Release date: November 19th 2024 based on Debian version: 12 (bookworm)
 and a kernel 6.6 -- ``Linux raspberrypi 6.6.74+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.6.74-1+rpt1 (2025-01-27) aarch64 GNU/Linux``) but using the ``kernel8.img`` kernel rather than the default 
 (see the ``config.txt`` line stating ``kernel=kernel8.img``) to use 4 KB memory pagesize rather 
 than the defaut 16 KB on RPi5.
+
+The XTRX is fitted on the PCI bus using https://pineboards.io/products/hat-mpcie-for-raspberry-pi-5.
+
+<img src="IMG_20250225_074634_402small.jpg">
 
 Make sure that 
 ```
